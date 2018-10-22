@@ -64,7 +64,8 @@ def sort_dictionary(d, by):
     #     d_sorted = sorted(zip(d.values(), d.keys()))
     # else:
     #     return None
-    # return d_sorted
+    # # return d_sorted                                         # d_sorted is a list
+    # return dict(d_sorted)
 
     # from operator import itemgetter
     # if by == 'k':
@@ -73,7 +74,8 @@ def sort_dictionary(d, by):
     #     d_sorted = sorted(d.items(), key=itemgetter(1))
     # else:
     #     return None
-    # return d_sorted
+    # # return d_sorted                                         # d_sorted is a list
+    # return dict(d_sorted)
 
     if by == 'k':
         d_sorted = sorted(d.items(), key=lambda i: i[0])
@@ -81,7 +83,8 @@ def sort_dictionary(d, by):
         d_sorted = sorted(d.items(), key=lambda i: i[1])
     else:
         return None
-    return d_sorted
+    # return d_sorted                                         # d_sorted is a list
+    return dict(d_sorted)
 
 
 def demonstrate_dict_sorting():
