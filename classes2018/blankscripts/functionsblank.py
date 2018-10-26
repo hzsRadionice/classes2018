@@ -4,8 +4,9 @@
 
 def demonstrate_annotations(artist: str, song: str = 'Because the Night') -> str:
     """Demonstrates how to use annotations of function parameters/arguments and of function return type.
+    - print the function parameters/arguments
     - print the value of the __annotations__ attribute of this function
-    - raw-print the function parameters
+    - return a formatted string (including function parameters/arguments)
     """
 
 
