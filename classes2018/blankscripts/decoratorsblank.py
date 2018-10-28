@@ -1,5 +1,5 @@
 """Demonstrates pass, returning None, functions as parameters of other functions,
-functions as return values of other functions, user-defined and built-in decorators and lambdas
+functions as return values of other functions and user-defined decorators
 """
 
 
@@ -29,7 +29,7 @@ def return_function_with_args(*args):
     The returned function has parameters/arguments.
     In this example, depending on len(args), return_function_with_args() returns one of the following functions:
     - a function that returns an empty list
-    - a function that returns a tuple
+    - a function that returns a tuple of args (or a list or args, or...)
     """
 
 
