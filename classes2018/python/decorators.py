@@ -72,7 +72,12 @@ def show_author(artwork_f):
         return wrapper_decorator
     """
 
+    import functools
+
+    @functools.wraps(artwork_f)
     def wrapper_show_author(*args, **kwargs):
+        """Wrapper function
+        """
 
         # Do something before
         authors = list(args)
@@ -124,5 +129,12 @@ if __name__ == '__main__':
     # print_song = show_author(print_song)                                    # decorate manually
     # print_song("Because the Night", "Bruce Springsteen", "Patti Smith")
     print_song("Because the Night", "Bruce Springsteen", "Patti Smith")
+    print()
 
+    # print(print_song.__doc__)                                               # before the introduction of functools
+    # print(print_song.__name__)
+    # print()
+    print(print_song.__doc__)                                               # after the introduction of functools
+    print(print_song.__name__)
+    print()
 
