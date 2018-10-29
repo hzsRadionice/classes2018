@@ -38,8 +38,10 @@ def use_flexible_arg_list(prompt: str, *songs):
     print('{}: {}'.format(prompt, *songs))                                  # prints only the first song!
 
     print(prompt, end=': ')
-    for song in songs:
-        print(song, end=', ')
+    # for song in songs:
+    #     print(song, end=', ')
+    # print('...')
+    print(', '.join(song for song in songs), end='')
     print('...')
 
 
@@ -80,7 +82,7 @@ if __name__ == "__main__":
     authors = {}
     use_all_categories_of_args('The song', "Easter", "Promise",
                                song='Because the Night',
-                               a1='Bruce Springsteen')
+                               a1='Bruce Springsteen', a2='Patti Smith')
     use_all_categories_of_args('The song', *albums,
                                song='Because the Night',
                                **authors)                               # unpack albums and authors

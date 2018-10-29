@@ -36,10 +36,11 @@ def return_function(full_name, first_name_flag):
     def get_family_name():
         return full_name.split()[1]
 
-    if first_name_flag:
-        return get_first_name
-    else:
-        return get_family_name
+    # if first_name_flag:
+    #     return get_first_name
+    # else:
+    #     return get_family_name
+    return get_first_name if first_name_flag else get_family_name
 
 
 def return_function_with_args(*args):
