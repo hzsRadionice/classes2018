@@ -9,6 +9,7 @@ class Album:
     """The class describing the concept of album.
     It is assumed that an album is sufficiently described by its
     title, performer, duration and release date.
+    The class defines the __init__(), __str__(), __eq__(), __iter__() and __next__() methods.
     """
 
 
@@ -37,6 +38,7 @@ class SongNotIncludedError(AlbumError):
 
 def play_song(song, album):
     """Play the requested song from the album.
+    Raises SongNotIncludedError() if the requested song is not included on the album.
     """
 
 

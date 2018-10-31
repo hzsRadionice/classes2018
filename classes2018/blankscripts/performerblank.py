@@ -9,11 +9,14 @@ class Performer:
     """The class describing the concept of performer.
     It is assumed that a performer is sufficiently described by their
     name and whether it is a solo performer or a band.
+    The class defines the __init__(), __str__() and __eq__() methods.
+    It also defines the format_performer() method (converts a performer object to its name field for printing purposes).
     """
 
 
 class PerformerEncoder(json.JSONEncoder):
     """JSON encoder for Performer objects.
+    Redefines the default(self, o) method of json.JSONEncoder.
     """
 
 
