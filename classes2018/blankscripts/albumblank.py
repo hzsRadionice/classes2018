@@ -8,7 +8,7 @@ from classes2018.util import utility
 class Album:
     """The class describing the concept of album.
     It is assumed that an album is sufficiently described by its
-    title, performer, duration and release date.
+    title, performer, songs, duration and release date.
     The class defines the __init__(), __str__(), __eq__(), __iter__() and __next__() methods.
     """
 

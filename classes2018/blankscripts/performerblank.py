@@ -11,6 +11,7 @@ class Performer:
     name and whether it is a solo performer or a band.
     The class defines the __init__(), __str__() and __eq__() methods.
     It also defines the format_performer() method (converts a performer object to its name field for printing purposes).
+    This can possibly be a static method.
     """
 
 

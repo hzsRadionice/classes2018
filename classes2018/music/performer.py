@@ -11,7 +11,28 @@ class Performer:
     name and whether it is a solo performer or a band.
     The class defines the __init__(), __str__() and __eq__() methods.
     It also defines the format_performer() method (converts a performer object to its name field for printing purposes).
+    This can possibly be a static method.
     """
+
+    def __init__(self, name, is_band=False):
+        self.name = name
+        self.is_band = is_band
+
+    def __str__(self):
+        return 'unknown' if not isinstance(self.name, str) or self.name == '' \
+                         else self.name + (' (band)' if self.is_band else ' (musician)')
+
+    def __eq__(self, other):
+        if not isinstance(other, Performer):
+            return None
+        return True if self.name == other.name else False
+
+    # def format_performer(self):
+    #     return self.name if isinstance(self, Performer) and self.name else 'unknown'
+
+    @staticmethod
+    def format_performer(performer):
+        return performer.name if isinstance(performer, Performer) and performer.name else 'unknown'
 
 
 class PerformerEncoder(json.JSONEncoder):
@@ -27,5 +48,9 @@ def json_to_py(performer_json):
 
 if __name__ == "__main__":
 
-    pass
+    # bruce = Performer('Bruce Springsteen')
+    bruce = Performer('Bruce Springsteen', False)
+    print(bruce)
+    print(bruce.format_performer())
+
 
