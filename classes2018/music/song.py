@@ -42,15 +42,19 @@ class Song:
                    # str(self.release_date), )
                    utility.format_date(self.release_date), )
 
+    # def __eq__(self, other):
+    #     if not isinstance(other, Song):
+    #         return False
+    #     return True if self.title == other.title and self.performer == other.performer else False
+
     def __eq__(self, other):
         if not isinstance(other, Song):
             return False
-        return True if self.title == other.title and self.performer == other.performer else False
+        return self.title == other.title and self.performer == other.performer
 
     def play(self):
         # print('Playing:', self.title)
-        print('Playing: {} ({})'.
-              format(self.title, self.performer.format_performer() if not self.performer else 'performer unknown'))
+        print('Playing: {} ({})'.format(self.title, Performer.format_performer(self.performer)))
 
 
 if __name__ == "__main__":
@@ -61,15 +65,26 @@ if __name__ == "__main__":
                              'Bruce Springsteen, Patti Smith',
                              234,
                              date(1978, 3, 2))
+    # b = Song('Because the Night',
+    #          'Patti Smith',
+    #          'Bruce Springsteen, Patti Smith',
+    #          234,
+    #          date(1978, 3, 2))
+    #
     # print(because_the_night)
+    # print(b == because_the_night)
     # print()
-    # because_the_night.play()
-    # print()
+
+    because_the_night.play()
+    print()
 
     bruce = Performer('Bruce Springsteen', True)
     print(bruce)
     because_the_night.performer = bruce
     print(because_the_night)
+    print()
+
+    because_the_night.play()
     print()
 
 

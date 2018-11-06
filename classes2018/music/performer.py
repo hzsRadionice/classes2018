@@ -22,17 +22,27 @@ class Performer:
         return 'unknown' if not isinstance(self.name, str) or self.name == '' \
                          else self.name + (' (band)' if self.is_band else ' (musician)')
 
+    # def __eq__(self, other):
+    #     if not isinstance(other, Performer):
+    #         return None
+    #     return True if self.name == other.name else False
+
     def __eq__(self, other):
         if not isinstance(other, Performer):
-            return None
-        return True if self.name == other.name else False
+            return False
+        return self.name == other.name
 
     # def format_performer(self):
     #     return self.name if isinstance(self, Performer) and self.name else 'unknown'
 
     @staticmethod
     def format_performer(performer):
-        return performer.name if isinstance(performer, Performer) and performer.name else 'unknown'
+        performer_formatted = 'performer unknown'
+        if isinstance(performer, Performer) and performer.name:
+            performer_formatted = performer.name
+        elif isinstance(performer, str):
+            performer_formatted = performer
+        return performer_formatted
 
 
 class PerformerEncoder(json.JSONEncoder):
@@ -51,6 +61,7 @@ if __name__ == "__main__":
     # bruce = Performer('Bruce Springsteen')
     bruce = Performer('Bruce Springsteen', False)
     print(bruce)
-    print(bruce.format_performer())
+    # print(bruce.format_performer())
+    print(Performer.format_performer(bruce))
 
 

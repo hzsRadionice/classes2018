@@ -30,8 +30,7 @@ class Album:
                    utility.format_duration(self.duration), utility.format_date(self.release_date))
 
     def __eq__(self, other):
-        return True if isinstance(other, Album) and other.title == self.title and other.performer == self.performer \
-            else False
+        return isinstance(other, Album) and other.title == self.title and other.performer == self.performer
 
     def __iter__(self):
         return self
@@ -79,7 +78,7 @@ def play_song(song, album):
 if __name__ == "__main__":
 
     patti_smith = Performer("Patti Smith")
-    patti = Author('Patti Smith', date(1946, 12, 30), 'Detroit', 'US')
+    patti = Author('Patti Smith', date(1946, 12, 30), 'Chicago', 'US')
     till_victory = Song('Till Victory', patti_smith, patti, 185, date(1978, 3, 3))
     space_monkey = Song('Space Monkey', patti_smith, patti, 198, date(1978, 3, 3))
     because_the_night = Song('Because the Night', patti_smith, patti, 189, date(1978, 3, 2))

@@ -24,7 +24,7 @@ class Genre(Enum):
     ROCK = 1,
     BLUES = 2,
     SOUL = 3,
-    INDIE = 4
+    INDIE = 4,
 
 
 class Instrument(Enum):
@@ -109,8 +109,7 @@ class Author:
         return cls(name) if isinstance(name, str) else cls('unknown')
 
     def __eq__(self, other):
-        return True if isinstance(other, Author) and other.name == self.name and other.birth_date == self.birth_date \
-            else False
+        return isinstance(other, Author) and other.name == self.name and other.birth_date == self.birth_date
 
 
 class AuthorEncoder(json.JSONEncoder):
