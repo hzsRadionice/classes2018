@@ -131,6 +131,37 @@ class Musician(Author):
     It also overrides the definition static field from the superclass.
     """
 
+    definition = 'A person who plays music.'
+
+    def __init__(self, name, birth_date=None, birth_place='unknown', nationality='unknown', alive=Lives.ALIVE,
+                 genre=Genre.ROCK, instrument=Instrument.GUITAR):
+        super().__init__(name, birth_date, birth_place, nationality, alive)
+        self.genre = genre
+        self.instrument = instrument
+
+    def __str__(self):
+        return super().__str__() + '\tgenre: {}\n\tinstrument: {}\n'.\
+            format(str(self.genre).lower()[6:], str(self.instrument).lower()[11:])
+
+    def __eq__(self, other):
+        return super().__eq__(other)
+
+    @property
+    def genre(self):
+        return self.__genre
+
+    @genre.setter
+    def genre(self, genre):
+        self.__genre = genre if genre and isinstance(genre, Genre) else Genre.ROCK
+
+    @property
+    def instrument(self):
+        return self.__instrument
+
+    @instrument.setter
+    def instrument(self, instrument):
+        self.__instrument = instrument if instrument and isinstance(instrument, Instrument) else Instrument.GUITAR
+
 
 class Poet(Author):
     """The class describing the concept of poet.
@@ -140,13 +171,47 @@ class Poet(Author):
     It also overrides the definition static field from the superclass.
     """
 
+    definition = 'A person who writes poetry.'
+
+    def __init__(self, name, birth_date=None, birth_place='unknown', nationality='unknown', alive=Lives.ALIVE,
+                 poetry=PoetryType.LYRIC):
+        super().__init__(name, birth_date, birth_place, nationality, alive)
+        self.poetry = poetry
+
+    def __str__(self):
+        return super().__str__() + '\tpoetry: ' + str(self.poetry).lower()[11:] + '\n'
+
+    def __eq__(self, other):
+        return super().__eq__(other)
+
+    @property
+    def poetry(self):
+        return self.__poetry
+
+    @poetry.setter
+    def poetry(self, poetry):
+        self.__poetry = poetry if poetry and isinstance(poetry, PoetryType) else PoetryType.LYRIC
+
 
 class SingerSongwriter(Musician, Poet):
     """The class describing the concept of poet.
-    It is assumed that a poet is sufficiently described as a Musician who is simultaneously a Poet.
+    It is assumed that a singer-songwriter is sufficiently described as a Musician who is simultaneously a Poet.
     The class defines the __init__(), __str__() and __eq__() methods.
     It also overrides the definition static field from the superclasses.
     """
+
+    definition = 'A person who writes poetry and plays music.'
+
+    def __init__(self, name, birth_date=None, birth_place='unknown', nationality='unknown', alive=Lives.ALIVE,
+                 genre=Genre.ROCK, instrument=Instrument.GUITAR, poetry=PoetryType.LYRIC):
+        # super().__init__(name, birth_date, birth_place, nationality, alive, genre, instrument)
+        super().__init__(name, birth_date, birth_place, nationality, alive, poetry)
+
+    def __str__(self):
+        return super().__str__()
+
+    def __eq__(self, other):
+        return super().__eq__(other)
 
 
 if __name__ == "__main__":
@@ -161,6 +226,20 @@ if __name__ == "__main__":
     print(bruce == bruce1)
     Author.show_definition()
     Author.show_generic_definition()
+    print()
+
+    neil_young = Musician("Neil Young", date(1945, 11, 12), 'Toronto', 'Canadian')
+    neil = Musician("Neil Young", date(1945, 11, 12), 'Toronto', 'Canadian')
+    print(neil_young)
+    print(neil_young == neil)
+    print(neil_young.definition)
+    print(bruce.definition)
+    print()
+
+    patti = SingerSongwriter('Patti Smith', date(1946, 12, 30), 'Chicago', 'US')
+    print(patti)
+    print(SingerSongwriter.__mro__)
+    print()
 
 
 
