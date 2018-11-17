@@ -3,6 +3,7 @@
 from datetime import date, timedelta, datetime
 from time import perf_counter
 import random
+import sys
 
 from classes2018.music.author import Author
 from classes2018.music.performer import Performer
@@ -94,11 +95,24 @@ class SongNotIncludedError(AlbumError):
     but is not included in the list of songs from that album.
     """
 
+    def __init__(self, song, album):
+        self.song = song
+        self.album = album
+        self.message = 'Song \'{}\' not included on album \'{}\'\n'.format(self.song.title, self.album.title)
+
 
 def play_song(song, album):
     """Play the requested song from the album.
     Raises SongNotIncludedError() if the requested song is not included on the album.
     """
+
+    if isinstance(song, Song) and isinstance(album, Album):
+        if song in album.songs:
+            print('Playing \'{}\'...'.format(song.title))
+        else:
+            raise SongNotIncludedError(song, album)
+    else:
+        raise TypeError
 
 
 if __name__ == "__main__":
@@ -116,6 +130,54 @@ if __name__ == "__main__":
     # for song in easter:
     #     print(song)
 
-    for song in shuffle(easter, 23, 0.0001):
+    for song in shuffle(easter, 23, 0.0001):                            # demonstrate generators
         print(song)
+    print()
+
+    # songs = [till_victory, space_monkey, because_the_night]
+    # for i in range(5):                                                  # demonstrate catching exceptions
+    #     try:
+    #         # print(songs[i] / 4)
+    #         print(songs[i])
+    #     # # except:
+    #     # #     print('Caught an exception...')
+    #     # #     break
+    #     # except Exception as e:
+    #     #     print(type(e).__name__, e.args)
+    #     #     print(type(e).__name__ + ':', e.args[0])
+    #     #     print(type(e).__name__ + ':', e.args[0], '(i = ' + str(i) + ')')
+    #     #     break
+    #     except IndexError as e:
+    #         print('Caught exception:', e.args[0], '(i = ' + str(i) + ')')
+    #         break
+    #     except Exception as e:
+    #         print(type(e).__name__ + ':', e.args[0])
+    #         break
+    #     else:
+    #         print('Do something if no exception is caught...')
+    #     finally:
+    #         print('Finally...')
+    # print('Done.')
+    # print()
+
+    try:                                                            # demonstrate catching user-defined exceptions
+        # play_song(because_the_night, easter)
+        play_song(Song('Dancing Barefoot'), easter)
+    except SongNotIncludedError as e:
+        # sys.stderr.write(e.message)
+        # print(e.message, file=sys.stderr)
+        print(e.message)
+    except TypeError as e:
+        # sys.stderr.write(e.args[0])
+        # print(e.args[0], file=sys.stderr)
+        print(e.args[0])
+    else:
+        print('Nice song :)')
+    finally:
+        print('Done')
+
+
+
+
+
 
