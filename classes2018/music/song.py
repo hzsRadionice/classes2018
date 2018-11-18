@@ -1,6 +1,9 @@
 """Domain classes and functions related to the concept of song
 """
+import pickle
+from pathlib import Path
 
+from classes2018 import settings
 from classes2018.music.performer import Performer
 from classes2018.music.author import Author
 from classes2018.util import utility
@@ -75,17 +78,129 @@ if __name__ == "__main__":
     # print(b == because_the_night)
     # print()
 
-    because_the_night.play()
-    print()
+    # because_the_night.play()
+    # print()
+    #
+    # bruce = Performer('Bruce Springsteen', True)
+    # print(bruce)
+    # because_the_night.performer = bruce
+    # print(because_the_night)
+    # print()
+    #
+    # because_the_night.play()
+    # print()
 
-    bruce = Performer('Bruce Springsteen', True)
-    print(bruce)
-    because_the_night.performer = bruce
-    print(because_the_night)
-    print()
+    # Writing/Reading to/from a text file
+    #
+    # print('Writing data to a txt file...')
+    # with open('because_the_night.txt', 'w') as out_file:
+    #     out_file.write(str(because_the_night))
+    # print('Data written to a txt file.')
+    # print()
+    #
+    # print('Reading data from a txt file...')
+    # with open('because_the_night.txt', 'r') as in_file:
+    #     becauseTheNight = in_file.read()
+    # print('Data read from a txt file.')
+    # print()
+    #
+    # print(str(because_the_night) == becauseTheNight)
+    # print()
 
-    because_the_night.play()
-    print()
+    # Writing/Reading to/from a binary file
 
+    # print('Writing data to a binary file...')
+    # with open('because_the_night', 'wb') as out_file:
+    #     # out_file.write(bytearray(str(because_the_night), encoding='ascii'))
+    #     # out_file.write(bytes(str(because_the_night), encoding='ascii'))
+    #     out_file.write(str.encode(str(because_the_night)))
+    # print('Data written to a binary file.')
+    # print()
+    #
+    # print('Reading data from a binary file...')
+    # with open('because_the_night', 'rb') as in_file:
+    #     becauseTheNight = in_file.read()
+    # print('Data read from a txt file.')
+    # print()
+    #
+    # print(becauseTheNight)
+    # print(str(becauseTheNight))
+    # print()
+    # # print(str(because_the_night) == becauseTheNight)
+    # print(str(because_the_night) == becauseTheNight.decode())
+    # print()
+
+    # Demonstrate pickle-serialization to a file
+
+    # print('Pickle-serialize data to a file...')
+    # with open('because_the_night', 'wb') as out_file:
+    #     pickle.dump(because_the_night, out_file, protocol=pickle.HIGHEST_PROTOCOL)
+    # print('Data pickle-serialized to a binary file.')
+    # print()
+    #
+    # print('Deserializing data from a pickle-serialized file...')
+    # with open('because_the_night', 'rb') as in_file:
+    #     becauseTheNight = pickle.load(in_file)
+    # print('Data deserialized from a pickle-serialized file.')
+    # print()
+    #
+    # print(becauseTheNight)
+    # print()
+    # print(because_the_night == becauseTheNight)
+    # print()
+
+    # Demonstrate pickle-serialization to a string
+
+    # print('Pickle-serialize to a string...')
+    # s = pickle.dumps(because_the_night, protocol=pickle.HIGHEST_PROTOCOL)
+    # print('Data pickle-serialized to a string.')
+    # print()
+    #
+    # print('Deserializing data from a pickle-serialized string...')
+    # becauseTheNight = pickle.loads(s)
+    # print('Data deserialized from a pickle-serialized string.')
+    # print()
+    #
+    # print(s)
+    # print()
+    # print(because_the_night == becauseTheNight)
+    # print()
+
+    # Demonstrate working with pathlib.Path
+
+    # current_dir = Path('.')                                           # print() and str() return only '.'
+    # current_dir = Path('.').absolute()
+    # print('Current dir:', current_dir)
+    # print('Parent dir:', current_dir.parent)
+    # new_dir = current_dir.parent / 'new'
+    # print('new_dir:', new_dir)
+    # print('type(new_dir):', type(new_dir))
+    # print('Path.cwd():', Path.cwd())
+    # print(Path.cwd() / 'new')
+    # print('PROJECT_DIR:', settings.PROJECT_DIR)
+    # print('get_project_dir():', utility.get_project_dir())
+    # print()
+    # # new_dir = Path.cwd() / 'new/data/blues'
+    # # new_dir.mkdir(parents=True, exist_ok=True)
+    # # new_dir.rmdir()                                                     # rmdir() requires the dir to be empty
+    # # print(new_dir)
+    # # data_dir = Path.cwd() / 'new/data'
+    # # print(data_dir)
+    # # data_dir.rmdir()
+    # data_dir = utility.get_data_dir()
+    # print(data_dir)
+    # print()
+
+    # Writing/Reading to/from a file in a data dir
+
+    file = Path(utility.get_data_dir() / 'because_the_night.txt')
+    file.write_text(str(because_the_night))
+    becauseTheNight = file.read_text()
+    print(str(because_the_night) == becauseTheNight)
+
+    file = Path(utility.get_data_dir() / 'because_the_night')
+    file.write_bytes(bytes(str(because_the_night), encoding='ascii'))
+    becauseTheNight = file.read_bytes()
+    print(str(because_the_night) == becauseTheNight.decode())
 
 

@@ -3,6 +3,9 @@
 
 from datetime import date
 from enum import Enum
+from pathlib import Path
+
+from classes2018 import settings
 
 
 def format_duration(seconds):
@@ -19,11 +22,6 @@ def format_date(a_date):
     return a_date.strftime('%b %d, %Y') if isinstance(a_date, date) else 'unknown'
 
 
-class Lives(Enum):
-    """The enum indicating the status of being alive or deceased.
-    """
-
-
 def date_py_to_json(a_date):
     """Converts datetime.date objects to JSON.
     """
@@ -38,11 +36,17 @@ def get_project_dir():
     """Returns the Path object corresponding to the project root directory.
     """
 
+    return Path(settings.PROJECT_DIR)
+
 
 def get_data_dir():
     """Returns the Path object corresponding to the data directory
     (by convention located right under the project root directory).
     """
+
+    data_dir = Path(get_project_dir() / 'data')
+    data_dir.mkdir(parents=True, exist_ok=True)
+    return data_dir
 
 
 if __name__ == '__main__':

@@ -106,13 +106,17 @@ def play_song(song, album):
     Raises SongNotIncludedError() if the requested song is not included on the album.
     """
 
-    if isinstance(song, Song) and isinstance(album, Album):
-        if song in album.songs:
-            print('Playing \'{}\'...'.format(song.title))
-        else:
-            raise SongNotIncludedError(song, album)
+    # if isinstance(song, Song) and isinstance(album, Album):
+    #     if song in album.songs:
+    #         print('Playing \'{}\'...'.format(song.title))
+    #     else:
+    #         raise SongNotIncludedError(song, album)
+    # else:
+    #     raise TypeError
+    if song in album.songs:
+        print('Playing \'{}\'...'.format(song.title))
     else:
-        raise TypeError
+        raise SongNotIncludedError(song, album)
 
 
 if __name__ == "__main__":
@@ -162,19 +166,25 @@ if __name__ == "__main__":
 
     try:                                                            # demonstrate catching user-defined exceptions
         # play_song(because_the_night, easter)
+        # play_song(Song('Dancing Barefoot'), 'ddd')
         play_song(Song('Dancing Barefoot'), easter)
     except SongNotIncludedError as e:
-        # sys.stderr.write(e.message)
+        sys.stderr.write(e.message)
         # print(e.message, file=sys.stderr)
+        print(e.args)
         print(e.message)
     except TypeError as e:
-        # sys.stderr.write(e.args[0])
-        # print(e.args[0], file=sys.stderr)
-        print(e.args[0])
+        # sys.stderr.write(e.args)
+        # print(e.args, file=sys.stderr)
+        # print(e.args)
+        # sys.stderr.write(e.__class__.__name__)
+        print(e.__class__.__name__)
     else:
         print('Nice song :)')
     finally:
         print('Done')
+    print()
+
 
 
 
