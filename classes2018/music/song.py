@@ -120,7 +120,7 @@ if __name__ == "__main__":
     # print('Reading data from a binary file...')
     # with open('because_the_night', 'rb') as in_file:
     #     becauseTheNight = in_file.read()
-    # print('Data read from a txt file.')
+    # print('Data read from a binary file.')
     # print()
     #
     # print(becauseTheNight)
