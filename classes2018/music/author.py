@@ -117,10 +117,29 @@ class AuthorEncoder(json.JSONEncoder):
     Redefines the default(self, o) method of json.JSONEncoder.
     """
 
+    def default(self, o):
+        if isinstance(o, Author):
+            d = o.__dict__.copy()
+            # d['birth_date'] = utility.date_py_to_json(d['birth_date'])
+            d['birth_date'] = utility.date_py_to_json(o.birth_date)
+            d['alive'] = 'true' if o.alive == Lives.ALIVE else 'false' if o.alive == Lives.DECEASED else 'unknown'
+            return {'__Author__': d}
+        return {'__{}__'.format(o.__class__.__name__): o.__dict__}
+
 
 def json_to_py(author_json):
     """JSON decoder for Author objects (object_hook parameter in json.loads()).
     """
+
+    if '__Author__' in author_json:
+        author = Author('')
+        author.__dict__.update(author_json['__Author__'])
+        author.birth_date = utility.date_json_to_py(author.birth_date)
+        author.alive = Lives.ALIVE if author.alive == 'true' \
+            else Lives.DECEASED if author.alive == 'false' \
+            else 'unknown'
+        return author
+    return author_json
 
 
 class Musician(Author):
@@ -241,5 +260,11 @@ if __name__ == "__main__":
     print(SingerSongwriter.__mro__)
     print()
 
-
+    # JSON
+    bruce_json = json.dumps(bruce, indent=4, cls=AuthorEncoder)
+    print(bruce_json)
+    print()
+    b = json.loads(bruce_json, object_hook=json_to_py)
+    print(b)
+    print(bruce == b)
 

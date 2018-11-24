@@ -26,10 +26,14 @@ def date_py_to_json(a_date):
     """Converts datetime.date objects to JSON.
     """
 
+    return a_date.isoformat() if isinstance(a_date, date) else 'null'
+
 
 def date_json_to_py(iso_date):
     """Converts string formatted as 'YYYY-mm-dd' to datetime.date object.
     """
+
+    return date.fromisoformat(iso_date)
 
 
 def get_project_dir():
@@ -51,5 +55,8 @@ def get_data_dir():
 
 if __name__ == '__main__':
 
-    pass
+    # print(date_py_to_json(date(1978, 3, 2)))
+    # print(date_json_to_py(date_py_to_json(date(1978, 3, 2))))
+    # print(str(date(1978, 3, 2)))
 
+    pass

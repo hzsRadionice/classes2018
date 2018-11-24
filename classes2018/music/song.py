@@ -1,11 +1,11 @@
 """Domain classes and functions related to the concept of song
 """
+import json
 import pickle
 from pathlib import Path
 
 from classes2018 import settings
-from classes2018.music.performer import Performer
-from classes2018.music.author import Author
+from classes2018.music import performer, author
 from classes2018.util import utility
 
 from datetime import date
@@ -37,9 +37,9 @@ class Song:
         return '{}\n\tperformer(s): {}\n\tauthor(s): {}\n\tduration: {}\n\trelease date: {}'.\
             format(self.title,
                    # self.performer.format_performer() if self.performer else 'unknown',
-                   Performer.format_performer(self.performer) if self.performer else 'unknown',
+                   performer.Performer.format_performer(self.performer) if self.performer else 'unknown',
                    # str(self.author),
-                   Author.format_author(self.author),
+                   author.Author.format_author(self.author),
                    # str(self.duration),
                    utility.format_duration(self.duration),
                    # str(self.release_date), )
@@ -57,7 +57,28 @@ class Song:
 
     def play(self):
         # print('Playing:', self.title)
-        print('Playing: {} ({})'.format(self.title, Performer.format_performer(self.performer)))
+        print('Playing: {} ({})'.format(self.title, performer.Performer.format_performer(self.performer)))
+
+
+def py_to_json(song):
+    if isinstance(song, Song):
+        d = song.__dict__.copy()
+        d['performer'] = json.dumps(song.performer, indent=4, cls=performer.PerformerEncoder)
+        d['author'] = json.dumps(song.author, indent=4, cls=author.AuthorEncoder)
+        d['release_date'] = utility.date_py_to_json(song.release_date)
+        return {'__Song__': d}
+    return {'__{}__'.format(song.__class__.__name__): song.__dict__}
+
+
+def json_to_py(song_json):
+    if '__Song__' in song_json:
+        song = Song()
+        song.__dict__.update(song_json['__Song__'])
+        song.performer = json.loads(song.__dict__['performer'], object_hook=performer.json_to_py)
+        song.author = json.loads(song.__dict__['author'], object_hook=author.json_to_py)
+        song.release_date = utility.date_json_to_py(song.__dict__['release_date'])
+        return song
+    return song_json
 
 
 if __name__ == "__main__":
@@ -193,14 +214,25 @@ if __name__ == "__main__":
 
     # Writing/Reading to/from a file in a data dir
 
-    file = Path(utility.get_data_dir() / 'because_the_night.txt')
-    file.write_text(str(because_the_night))
-    becauseTheNight = file.read_text()
-    print(str(because_the_night) == becauseTheNight)
+    # file = Path(utility.get_data_dir() / 'because_the_night.txt')
+    # file.write_text(str(because_the_night))
+    # becauseTheNight = file.read_text()
+    # print(str(because_the_night) == becauseTheNight)
+    #
+    # file = Path(utility.get_data_dir() / 'because_the_night')
+    # file.write_bytes(bytes(str(because_the_night), encoding='ascii'))
+    # becauseTheNight = file.read_bytes()
+    # print(str(because_the_night) == becauseTheNight.decode())
 
-    file = Path(utility.get_data_dir() / 'because_the_night')
-    file.write_bytes(bytes(str(because_the_night), encoding='ascii'))
-    becauseTheNight = file.read_bytes()
-    print(str(because_the_night) == becauseTheNight.decode())
+    # JSON
 
+    bruce = author.Author("Bruce Springsteen", date(1949, 9, 23), "Freehold, NJ", "US")
+    patti = performer.Performer("Patti Smith")
+    becauseTheNight = Song('Because the Night', patti, bruce, 190, date(1978, 3, 2))
+
+    becauseTheNight_json = json.dumps(becauseTheNight, indent=4, default=py_to_json)
+    print(becauseTheNight_json)
+    b = json.loads(becauseTheNight_json, object_hook=json_to_py)
+    print(b == becauseTheNight)
+    print()
 

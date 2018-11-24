@@ -3,6 +3,9 @@
 
 
 import json
+from pathlib import Path
+
+from classes2018.util import utility
 
 
 class Performer:
@@ -50,10 +53,24 @@ class PerformerEncoder(json.JSONEncoder):
     Redefines the default(self, o) method of json.JSONEncoder.
     """
 
+    def default(self, o):
+        if isinstance(o, Performer):
+            return {'__Performer__': o.__dict__}
+        return {'__{}__'.format(o.__class__.__name): o.__dict__}
+
 
 def json_to_py(performer_json):
     """JSON decoder for Performer objects (object_hook parameter in json.loads()).
     """
+
+    # performer_json_no_whitespace = ''.join(performer_json.split)
+    # if '__Performer__' in performer_json_no_whitespace:
+    if '__Performer__' in performer_json:
+        p = Performer('')
+        # d = performer_json['__Performer__']
+        p.__dict__.update(performer_json['__Performer__'])
+        return p
+    return performer_json
 
 
 if __name__ == "__main__":
@@ -63,5 +80,49 @@ if __name__ == "__main__":
     print(bruce)
     # print(bruce.format_performer())
     print(Performer.format_performer(bruce))
+    print()
 
+    # JSON
+
+    # intro
+    print(bruce.__class__)
+    print(bruce.__class__.__name__)
+    print(bruce.__dict__)
+    print()
+
+    print(json.dumps(True))
+    print(json.dumps(12))
+    print(json.dumps([1, 2, 3, 'Patti']))
+    print(json.dumps(bruce.__dict__, indent=4))
+    print()
+
+    with open(utility.get_data_dir() / 'bruce.json', 'w') as f:
+        json.dump(bruce.__dict__, f, indent=4)
+    with open(utility.get_data_dir() / 'bruce.json') as f:
+        d = json.load(f)
+    print(d)
+    b = Performer('', True)                                 # deliberately erroneous parameters in the constructor
+    b.__dict__.update(d)
+    print(b == bruce)
+    print()
+
+    # using JSONEncoder
+    bruce_json = json.dumps(bruce, indent=4, cls=PerformerEncoder)
+    print(bruce_json)
+    print(type(bruce_json))
+    print()
+
+    b = json.loads(bruce_json, object_hook=json_to_py)      # just the function name in object_hook!
+    print(b)
+    print(bruce == b)
+    print()
+
+    patti = Performer("Patti Smith", False)
+    bruce_and_patti_json = json.dumps([bruce, patti], indent=4, cls=PerformerEncoder)
+    print(bruce_and_patti_json)
+    bruce_and_patti_list = json.loads(bruce_and_patti_json, object_hook=json_to_py)
+    print(bruce_and_patti_list)
+    for performer in bruce_and_patti_list:
+        print(performer)
+    print()
 
