@@ -187,21 +187,15 @@ if __name__ == "__main__":
         print('Done')
     print()
 
-    # Attempt to use jsonpickle
-
-    # songs = [till_victory, space_monkey, because_the_night]
-    # songs_json = jsonpickle.encode(songs)
-    # songs_py = jsonpickle.decode(songs_json)
-    # print(songs == songs_py)
-
-    # easter = Album('Easter', patti_smith, songs=[till_victory, space_monkey, because_the_night],
-    #                duration=594, release_date=date(1978, 3, 3))
-    # easter = Album('Easter', patti_smith, songs=[till_victory, space_monkey, because_the_night])
+    # Attempt to use jsonpickle. Works only if __iter__() and __next__() are commented out.
+    # With __iter__() and __next__() in place, jsonpickle.decode() returns a list_iterator object, not an Album object.
 
     easter_json = jsonpickle.encode(easter, make_refs=False)
     print(easter_json)
     easter_py = jsonpickle.decode(easter_json)
     print(easter == easter_py)
+    print(type(easter_py))
+    print(type(easter))
     print(easter_py)
 
 
