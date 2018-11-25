@@ -5,6 +5,8 @@
 import json
 from pathlib import Path
 
+import jsonpickle
+
 from classes2018.util import utility
 
 
@@ -125,4 +127,9 @@ if __name__ == "__main__":
     for performer in bruce_and_patti_list:
         print(performer)
     print()
+
+    # jsonpickle
+    patti_json = jsonpickle.encode(patti)
+    patti_py = jsonpickle.decode(patti_json)
+    print(patti == patti_py)
 

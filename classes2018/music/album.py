@@ -5,6 +5,8 @@ from time import perf_counter
 import random
 import sys
 
+import jsonpickle as jsonpickle
+
 from classes2018.music.author import Author
 from classes2018.music.performer import Performer
 from classes2018.music.song import Song
@@ -185,9 +187,21 @@ if __name__ == "__main__":
         print('Done')
     print()
 
+    # Attempt to use jsonpickle
 
+    # songs = [till_victory, space_monkey, because_the_night]
+    # songs_json = jsonpickle.encode(songs)
+    # songs_py = jsonpickle.decode(songs_json)
+    # print(songs == songs_py)
 
+    # easter = Album('Easter', patti_smith, songs=[till_victory, space_monkey, because_the_night],
+    #                duration=594, release_date=date(1978, 3, 3))
+    # easter = Album('Easter', patti_smith, songs=[till_victory, space_monkey, because_the_night])
 
-
+    easter_json = jsonpickle.encode(easter, make_refs=False)
+    print(easter_json)
+    easter_py = jsonpickle.decode(easter_json)
+    print(easter == easter_py)
+    print(easter_py)
 
 

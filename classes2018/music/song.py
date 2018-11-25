@@ -4,6 +4,8 @@ import json
 import pickle
 from pathlib import Path
 
+import jsonpickle
+
 from classes2018 import settings
 from classes2018.music import performer, author
 from classes2018.util import utility
@@ -235,4 +237,11 @@ if __name__ == "__main__":
     b = json.loads(becauseTheNight_json, object_hook=json_to_py)
     print(b == becauseTheNight)
     print()
+
+    # jsonpickle
+    becauseTheNight_json = jsonpickle.encode(becauseTheNight)
+    b = jsonpickle.decode(becauseTheNight_json)
+    print(b == becauseTheNight)
+    print()
+
 

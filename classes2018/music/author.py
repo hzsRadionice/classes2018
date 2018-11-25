@@ -6,6 +6,8 @@ from datetime import date
 from enum import Enum
 import json
 
+import jsonpickle
+
 from classes2018.util import utility
 
 
@@ -267,4 +269,11 @@ if __name__ == "__main__":
     b = json.loads(bruce_json, object_hook=json_to_py)
     print(b)
     print(bruce == b)
+    print()
+
+    # jsonpickle
+    bruce_json = jsonpickle.encode(bruce)
+    b = jsonpickle.decode(bruce_json)
+    print(bruce == b)
+    print()
 
