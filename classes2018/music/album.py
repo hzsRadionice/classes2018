@@ -61,6 +61,7 @@ def format_songs(songs):
 #     """A generator of Song objects, given the input list of songs.
 #     """
 
+
 def shuffle(album, seed, play_time):
     """A generator of song titles from a given album in random order.
     Simulates shuffle-playing of songs from the album
@@ -114,7 +115,7 @@ def play_song(song, album):
     #     else:
     #         raise SongNotIncludedError(song, album)
     # else:
-    #     raise TypeError
+    #     raise TypeError()
     if song in album.songs:
         print('Playing \'{}\'...'.format(song.title))
     else:
@@ -136,9 +137,9 @@ if __name__ == "__main__":
     # for song in easter:
     #     print(song)
 
-    for song in shuffle(easter, 23, 0.0001):                            # demonstrate generators
-        print(song)
-    print()
+    # for song in shuffle(easter, 23, 0.0001):                            # demonstrate generators
+    #     print(song)
+    # print()
 
     # songs = [till_victory, space_monkey, because_the_night]
     # for i in range(5):                                                  # demonstrate catching exceptions
@@ -166,26 +167,26 @@ if __name__ == "__main__":
     # print('Done.')
     # print()
 
-    try:                                                            # demonstrate catching user-defined exceptions
-        # play_song(because_the_night, easter)
-        # play_song(Song('Dancing Barefoot'), 'ddd')
-        play_song(Song('Dancing Barefoot'), easter)
-    except SongNotIncludedError as e:
-        sys.stderr.write(e.message)
-        # print(e.message, file=sys.stderr)
-        print(e.args)
-        print(e.message)
-    except TypeError as e:
-        # sys.stderr.write(e.args)
-        # print(e.args, file=sys.stderr)
-        # print(e.args)
-        # sys.stderr.write(e.__class__.__name__)
-        print(e.__class__.__name__)
-    else:
-        print('Nice song :)')
-    finally:
-        print('Done')
-    print()
+    # try:                                                            # demonstrate catching user-defined exceptions
+    #     # play_song(because_the_night, easter)
+    #     # play_song(Song('Dancing Barefoot'), 'ddd')
+    #     play_song(Song('Dancing Barefoot'), easter)
+    # except SongNotIncludedError as e:
+    #     sys.stderr.write(e.message)
+    #     # print(e.message, file=sys.stderr)
+    #     print(e.args)
+    #     print(e.message)
+    # except TypeError as e:
+    #     # sys.stderr.write(e.args)
+    #     # print(e.args, file=sys.stderr)
+    #     # print(e.args)
+    #     # sys.stderr.write(e.__class__.__name__)
+    #     print(e.__class__.__name__)
+    # else:
+    #     print('Nice song :)')
+    # finally:
+    #     print('Done')
+    # print()
 
     # Attempt to use jsonpickle. Works only if __iter__() and __next__() are commented out.
     # With __iter__() and __next__() in place, jsonpickle.decode() returns a list_iterator object, not an Album object.

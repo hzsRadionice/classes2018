@@ -228,20 +228,20 @@ if __name__ == "__main__":
 
     # JSON
 
-    bruce = author.Author("Bruce Springsteen", date(1949, 9, 23), "Freehold, NJ", "US")
-    patti = performer.Performer("Patti Smith")
-    becauseTheNight = Song('Because the Night', patti, bruce, 190, date(1978, 3, 2))
-
-    becauseTheNight_json = json.dumps(becauseTheNight, indent=4, default=py_to_json)
-    print(becauseTheNight_json)
-    b = json.loads(becauseTheNight_json, object_hook=json_to_py)
-    print(b == becauseTheNight)
-    print()
-
-    # jsonpickle
-    becauseTheNight_json = jsonpickle.encode(becauseTheNight)
-    b = jsonpickle.decode(becauseTheNight_json)
-    print(b == becauseTheNight)
-    print()
+    # bruce = author.Author("Bruce Springsteen", date(1949, 9, 23), "Freehold, NJ", "US")
+    # patti = performer.Performer("Patti Smith")
+    # becauseTheNight = Song('Because the Night', patti, bruce, 190, date(1978, 3, 2))
+    #
+    # becauseTheNight_json = json.dumps(becauseTheNight, indent=4, default=py_to_json)
+    # print(becauseTheNight_json)
+    # b = json.loads(becauseTheNight_json, object_hook=json_to_py)
+    # print(b == becauseTheNight)
+    # print()
+    #
+    # # jsonpickle
+    # becauseTheNight_json = jsonpickle.encode(becauseTheNight)
+    # b = jsonpickle.decode(becauseTheNight_json)
+    # print(b == becauseTheNight)
+    # print()
 
 
