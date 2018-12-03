@@ -50,6 +50,15 @@ class Performer:
         return performer_formatted
 
 
+def py_to_json(performer):
+    """JSON encoder for Performer objects (default= parameter in json.dumps()).
+    """
+
+    if isinstance(performer, Performer):
+        return {'__Performer__': performer.__dict__}
+    return {'__{}__'.format(performer.__class__.name): performer.__dict__}
+
+
 class PerformerEncoder(json.JSONEncoder):
     """JSON encoder for Performer objects.
     Redefines the default(self, o) method of json.JSONEncoder.
@@ -58,7 +67,7 @@ class PerformerEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, Performer):
             return {'__Performer__': o.__dict__}
-        return {'__{}__'.format(o.__class__.__name): o.__dict__}
+        return {'__{}__'.format(o.__class__.__name__): o.__dict__}
 
 
 def json_to_py(performer_json):
@@ -86,29 +95,30 @@ if __name__ == "__main__":
 
     # JSON
 
-    # intro
-    print(bruce.__class__)
-    print(bruce.__class__.__name__)
-    print(bruce.__dict__)
-    print()
-
-    print(json.dumps(True))
-    print(json.dumps(12))
-    print(json.dumps([1, 2, 3, 'Patti']))
-    print(json.dumps(bruce.__dict__, indent=4))
-    print()
-
-    with open(utility.get_data_dir() / 'bruce.json', 'w') as f:
-        json.dump(bruce.__dict__, f, indent=4)
-    with open(utility.get_data_dir() / 'bruce.json') as f:
-        d = json.load(f)
-    print(d)
-    b = Performer('', True)                                 # deliberately erroneous parameters in the constructor
-    b.__dict__.update(d)
-    print(b == bruce)
-    print()
+    # # intro
+    # print(bruce.__class__)
+    # print(bruce.__class__.__name__)
+    # print(bruce.__dict__)
+    # print()
+    #
+    # print(json.dumps(True))
+    # print(json.dumps(12))
+    # print(json.dumps([1, 2, 3, 'Patti']))
+    # print(json.dumps(bruce.__dict__, indent=4))
+    # print()
+    #
+    # with open(utility.get_data_dir() / 'bruce.json', 'w') as f:
+    #     json.dump(bruce.__dict__, f, indent=4)
+    # with open(utility.get_data_dir() / 'bruce.json') as f:
+    #     d = json.load(f)
+    # print(d)
+    # b = Performer('', True)                                 # deliberately erroneous parameters in the constructor
+    # b.__dict__.update(d)
+    # print(b == bruce)
+    # print()
 
     # using JSONEncoder
+    # bruce_json = json.dumps(bruce, indent=4, default=py_to_json)
     bruce_json = json.dumps(bruce, indent=4, cls=PerformerEncoder)
     print(bruce_json)
     print(type(bruce_json))
@@ -119,17 +129,17 @@ if __name__ == "__main__":
     print(bruce == b)
     print()
 
-    patti = Performer("Patti Smith", False)
-    bruce_and_patti_json = json.dumps([bruce, patti], indent=4, cls=PerformerEncoder)
-    print(bruce_and_patti_json)
-    bruce_and_patti_list = json.loads(bruce_and_patti_json, object_hook=json_to_py)
-    print(bruce_and_patti_list)
-    for performer in bruce_and_patti_list:
-        print(performer)
-    print()
-
-    # jsonpickle
-    patti_json = jsonpickle.encode(patti)
-    patti_py = jsonpickle.decode(patti_json)
-    print(patti == patti_py)
+    # patti = Performer("Patti Smith", False)
+    # bruce_and_patti_json = json.dumps([bruce, patti], indent=4, cls=PerformerEncoder)
+    # print(bruce_and_patti_json)
+    # bruce_and_patti_list = json.loads(bruce_and_patti_json, object_hook=json_to_py)
+    # print(bruce_and_patti_list)
+    # for performer in bruce_and_patti_list:
+    #     print(performer)
+    # print()
+    #
+    # # jsonpickle
+    # patti_json = jsonpickle.encode(patti)
+    # patti_py = jsonpickle.decode(patti_json)
+    # print(patti == patti_py)
 
