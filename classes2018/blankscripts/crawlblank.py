@@ -133,97 +133,13 @@ if __name__ == "__main__":
 
     # Test crawl functions
 
-    # pages = get_imdb_pages('https://www.imdb.com/search/title?title=Bruce%20Springsteen&start=', 3)
-    # for page in pages:
-    #     print(page)
-
-    # soup = get_soup('https://www.imdb.com/search/title?title=Bruce%20Springsteen&start=1&ref_=adv_nxt')
-    # print(str(soup)[:500])
-
-    # soups = crawl('https://www.imdb.com/search/title?title=Bruce%20Springsteen&start=', get_imdb_pages, 2)
-    # print(len(soups))
-    # print(str(soups[0])[:500])
-    # print()
-    # # print(soups[0].find('div', {'class': 'lister-item mode-advanced'}))
-    # # print(soups[0].find('div', {'class': 'lister-item mode-advanced'}).find('h3').find('a'))
-    # print(soups[0].find('div', {'class': 'lister-item mode-advanced'}).find('h3').find('a').text)
-    # # print(soups[0].find('div', {'class': 'lister-item mode-advanced'}).find('h3').find('a').attrs['href'])
-    #
-    # # Working with relative links
+    # Working with relative links
     #
     # BASE_URL = 'https://www.imdb.com'
-    # rel_lnk = soups[0].find('div', {'class': 'lister-item mode-advanced'}).find('h3').find('a').attrs['href']
-    # print(urljoin(BASE_URL, rel_lnk))
-
-    # crawl_imdb_for_titles_and_links('https://www.imdb.com/search/title?title=Bruce%20Springsteen&start=', 3)
-    # crawl_patti_smith_albums('https://www.discogs.com/artist/193816-Patti-Smith', 3)
-    crawl_patti_smith_home_page('http://www.pattismith.net/intro.html')
-
-
-    # Working with relative links
-
-    # BASE_URL = 'http://www.pattismith.net'
-    # start_url = urljoin(BASE_URL, '/intro.html')
-    # print(start_url)
-    # print()
-    #
-    # soups = crawl(start_url, 1)
-    # soup = soups[0]
-    #
-    # print(soup.find_all('a'))
-    # print()
-    #
-    # links = []
-    # for link in soup.find_all('a'):
-    #     # links.append(link.attrs['href'])
-    #     links.append(urljoin(BASE_URL, link.attrs['href']))
-    # # for link in links:
-    # #     print(link)
-    # # print(type(links[0]))
-    # links = [link for link in links if 'patti' in link]     # eliminate irrelevant links
-    # links = list(set(links))                                # eliminate duplicates
-    # for link in links:
-    #     print(link)
-
-    # print(len(soups))
-    # for soup in soups:
-    #     print(soup.find_all('a'))
-    #
-    # # print(type(soup))
-    # # print(str(soup)[:500])
-    # print()
-    #
-    # print(soup.find_all('img'))
-    # for img_tag in soup.find_all('img'):
-    #     if 'Patti' in str(img_tag.attrs['src']):
-    #         print(img_tag.attrs['src'])
-    #
-    # # figure_tags = soup.find_all('figure')
-    # # for ft in figure_tags:
-    # #     print(ft)
-    #
-    # print(len(l2))
-    #
-    # # emb = soup.find_all('div', {'class': 'embedded-content embedded-content--image is-embed-initialized'})
-    # # emb = soup.find_all('div')
-    # # print(len(emb))
-    # # print(emb[21])
-    # # for img_div in emb:
-    # #     if 'img' in str(img_div):
-    # #         print(img_div)
-    # #         print()
-    #
-    # # fig = soup.find_all('figure')
-    # # print(len(fig))
-
-
-
 
     # If the page contains JavaScript
-    # start_url = 'https://www.billboard.com/articles/columns/rock/8462017/patti-smith-because-the-night-40th-anniversary-oral-history'
-    # soups = crawl(start_url, 1)
-    # soup = soups[0]
-    # l1 = soup.find('div', {'class': "longform__body js-fitvids-content"}).find('div', {'class': "longform__body-primary"})
-    # print(str(l1))
-    # l2 = l1.find('div', {'class': "embedded-content embedded-content--image is-embed-initialized"})
+
+    # start_url = \
+    #     'https://www.billboard.com/articles/columns/rock/8462017/' \
+    #     'patti-smith-because-the-night-40th-anniversary-oral-history'
 
